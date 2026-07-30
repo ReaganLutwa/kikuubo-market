@@ -39,7 +39,7 @@ function StatCounter({ value, suffix, label }: { value: number; suffix: string; 
 }
 
 /* ---------- Pricing tier price with tween ---------- */
-function TierPrice({ monthly, annual }: { monthly: number | null; annual: number | null; isAnnual: boolean }) {
+function TierPrice({ monthly, annual, isAnnual }: { monthly: number | null; annual: number | null; isAnnual: boolean }) {
   const target = isAnnual ? annual : monthly
   const [display, setDisplay] = useState(target)
   const prev = useRef(target)

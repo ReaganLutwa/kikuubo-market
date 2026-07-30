@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react'
-import { Link } from 'react-router'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Bell, ChevronDown, CheckCircle2, Zap, Flame, Tag, Leaf, AlarmClock } from 'lucide-react'
 import type { Product } from '@/data/products'
