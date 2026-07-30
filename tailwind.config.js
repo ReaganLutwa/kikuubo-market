@@ -4,7 +4,24 @@ module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        sora: ["Sora", "Inter", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
+      },
       colors: {
+        sunset: {
+          DEFAULT: "#F97316",
+          hover: "#EA580C",
+          deep: "#B91C1C",
+        },
+        night: "#1A120B",
+        cocoa: "#3E2C1E",
+        cream: "#FFF8F0",
+        sand: "#FFE8D1",
+        momo: "#FFCC00",
+        airtel: "#E40000",
+        leaf: "#16A34A",
+        "sky-info": "#0284C7",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
