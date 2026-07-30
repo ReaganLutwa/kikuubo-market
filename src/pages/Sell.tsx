@@ -5,6 +5,7 @@ import {
   ChevronDown, Star, Check, Sparkles,
 } from 'lucide-react'
 import SellerForm from '@/components/sell/SellerForm'
+import { A } from '@/lib/asset'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 32 },
@@ -302,7 +303,7 @@ export default function Sell() {
             className="relative"
           >
             <img
-              src="/banner-seller.png"
+              src={A('/banner-seller.png')}
               alt="Ugandan entrepreneur packing orders in her shop"
               className="w-full rounded-3xl shadow-2xl object-cover"
             />

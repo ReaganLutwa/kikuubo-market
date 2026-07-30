@@ -13,6 +13,7 @@ import { loadCart, saveCart, clearCart } from '@/components/checkout/cartState'
 import type { CartLine } from '@/components/checkout/cartState'
 import { DELIVERY_OPTIONS, REGIONS } from '@/components/checkout/delivery'
 import type { DeliveryOption } from '@/components/checkout/delivery'
+import { A } from '@/lib/asset'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 const STEPS = ['Cart', 'Payment', 'Done']
@@ -85,14 +86,14 @@ const PAY_METHODS: {
     id: 'momo',
     label: 'MTN Mobile Money',
     desc: "You'll approve with your MoMo PIN on your phone",
-    badge: '/payment-momo.svg',
+    badge: A('/payment-momo.svg'),
     accent: '#FFCC00',
   },
   {
     id: 'airtel',
     label: 'Airtel Money',
     desc: 'Approve with your Airtel Money PIN',
-    badge: '/payment-airtel.svg',
+    badge: A('/payment-airtel.svg'),
     accent: '#E40000',
   },
   {
@@ -398,8 +399,8 @@ export default function Cart() {
                 </motion.button>
 
                 <div className="mt-5 flex items-center justify-center gap-3">
-                  <img src="/payment-momo.svg" alt="MTN MoMo" className="h-6" />
-                  <img src="/payment-airtel.svg" alt="Airtel Money" className="h-6" />
+                  <img src={A('/payment-momo.svg')} alt="MTN MoMo" className="h-6" />
+                  <img src={A('/payment-airtel.svg')} alt="Airtel Money" className="h-6" />
                   <span className="text-[11px] font-semibold text-night/50 border border-night/15 rounded px-1.5 py-0.5">
                     VISA
                   </span>

@@ -7,6 +7,7 @@ import ProductCard from '@/components/ProductCard'
 import FlipCountdown from '@/components/deals/FlipCountdown'
 import FlashCard from '@/components/deals/FlashCard'
 import ClearanceCard from '@/components/deals/ClearanceCard'
+import { A } from '@/lib/asset'
 
 type TabId = 'flash' | 'drops' | 'under50' | 'clearance' | 'farm'
 
@@ -25,7 +26,7 @@ const budgetItems: Product[] = [
   {
     id: 'phone-case-kit',
     name: 'Shockproof Phone Case + Glass Protector Kit',
-    image: '/cat-phones.png',
+    image: A('/cat-phones.png'),
     price: 15000,
     oldPrice: 28000,
     rating: 4.3,
@@ -36,7 +37,7 @@ const budgetItems: Product[] = [
   {
     id: 'kitchen-set',
     name: 'Non-Stick Wooden-Handle Kitchen Utensil Set (6 pcs)',
-    image: '/cat-home.png',
+    image: A('/cat-home.png'),
     price: 45000,
     oldPrice: 65000,
     rating: 4.5,
@@ -48,7 +49,7 @@ const budgetItems: Product[] = [
   {
     id: 'kitenge-tshirt',
     name: 'Kitenge-Print Cotton T-Shirt, Unisex (S–XXL)',
-    image: '/cat-fashion.png',
+    image: A('/cat-fashion.png'),
     price: 25000,
     oldPrice: 38000,
     rating: 4.6,
@@ -59,7 +60,7 @@ const budgetItems: Product[] = [
   {
     id: 'avocado-basket',
     name: 'Basket of 12 Fresh Avocados — Masaka Farm Gate',
-    image: '/cat-agriculture.png',
+    image: A('/cat-agriculture.png'),
     price: 12000,
     rating: 4.8,
     reviews: 506,
@@ -77,7 +78,7 @@ const farmDeals: Product[] = [
   {
     id: 'irish-potatoes',
     name: 'Irish Potatoes, 10kg Sack — Kabale Highlands',
-    image: '/product-matooke.png',
+    image: A('/product-matooke.png'),
     price: 38000,
     oldPrice: 48000,
     rating: 4.7,
@@ -109,7 +110,7 @@ export default function Deals() {
       {/* ============ 1. HERO ============ */}
       <section className="relative overflow-hidden bg-night">
         <motion.img
-          src="/deals-bg.png"
+          src={A('/deals-bg.png')}
           alt=""
           initial={{ scale: 1 }}
           animate={{ scale: 1.08 }}

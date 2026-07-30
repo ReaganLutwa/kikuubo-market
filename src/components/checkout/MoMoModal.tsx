@@ -2,12 +2,13 @@ import { useEffect, useMemo, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Smartphone, Check } from 'lucide-react'
 import { formatUGX } from '@/data/products'
+import { A } from '@/lib/asset'
 
 export type PayMethod = 'momo' | 'airtel' | 'cod' | 'visa'
 
 const METHOD_META: Record<PayMethod, { label: string; color: string; badge?: string }> = {
-  momo: { label: 'MTN MoMo', color: '#FFCC00', badge: '/payment-momo.svg' },
-  airtel: { label: 'Airtel Money', color: '#E40000', badge: '/payment-airtel.svg' },
+  momo: { label: 'MTN MoMo', color: '#FFCC00', badge: A('/payment-momo.svg') },
+  airtel: { label: 'Airtel Money', color: '#E40000', badge: A('/payment-airtel.svg') },
   cod: { label: 'Cash on Delivery', color: '#3E2C1E' },
   visa: { label: 'VISA / Mastercard', color: '#1A120B' },
 }

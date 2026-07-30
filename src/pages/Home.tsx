@@ -10,6 +10,7 @@ import ProductCard from '@/components/ProductCard'
 import FlashSale from '@/components/home/FlashSale'
 import TrustStrip from '@/components/home/TrustStrip'
 import { categories, topDeals } from '@/data/products'
+import { A } from '@/lib/asset'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
@@ -151,7 +152,7 @@ function Hero() {
             transition={{ delay: 0.4, duration: 0.8, type: 'spring', bounce: 0.35 }}
             className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20"
           >
-            <img src="/hero-market.png" alt="Vibrant Ugandan street market" className="w-full object-cover aspect-[4/3]" />
+            <img src={A('/hero-market.png')} alt="Vibrant Ugandan street market" className="w-full object-cover aspect-[4/3]" />
           </motion.div>
           {chipData.map((chip, i) => (
             <BobChip key={chip.text} text={chip.text} y={chipYs[i]} className={chip.className} />
@@ -204,22 +205,22 @@ function CategoryBlocks() {
     {
       title: 'Agriculture & Farm Produce',
       sub: 'Direct from Ugandan farms',
-      img: '/cat-agriculture.png',
+      img: A('/cat-agriculture.png'),
       overlay: 'bg-gradient-to-t from-leaf/90 via-leaf/30 to-transparent',
       to: '/category?c=agriculture',
     },
     {
       title: 'Latest Phones',
       sub: 'Tecno, Samsung, Xiaomi & more',
-      img: '/cat-phones.png',
+      img: A('/cat-phones.png'),
       overlay: 'bg-gradient-to-t from-sunset/90 via-sunset/30 to-transparent',
       to: '/category?c=phones',
     },
   ]
   const small = [
-    { title: 'Electronics', img: '/cat-electronics.png', to: '/category?c=electronics' },
-    { title: 'Fashion', img: '/cat-fashion.png', to: '/category?c=fashion' },
-    { title: 'Home & Living', img: '/cat-home.png', to: '/category?c=home' },
+    { title: 'Electronics', img: A('/cat-electronics.png'), to: '/category?c=electronics' },
+    { title: 'Fashion', img: A('/cat-fashion.png'), to: '/category?c=fashion' },
+    { title: 'Home & Living', img: A('/cat-home.png'), to: '/category?c=home' },
   ]
 
   return (
@@ -301,10 +302,10 @@ function TopDeals() {
 /* ---------------- Farm Fresh Band ---------------- */
 
 const farmItems = [
-  { name: 'Matooke Bunch', price: 'UGX 18,000', img: '/product-matooke.png', tag: 'Mityana' },
-  { name: 'Dry Beans 5kg', price: 'UGX 32,000', img: '/product-beans.png', tag: 'Masaka' },
-  { name: 'Fresh Tomatoes 1kg', price: 'UGX 6,500', img: '/cat-agriculture.png', tag: 'Mbale' },
-  { name: 'Hass Avocado (each)', price: 'UGX 2,000', img: '/cat-agriculture.png', tag: 'Mityana' },
+  { name: 'Matooke Bunch', price: 'UGX 18,000', img: A('/product-matooke.png'), tag: 'Mityana' },
+  { name: 'Dry Beans 5kg', price: 'UGX 32,000', img: A('/product-beans.png'), tag: 'Masaka' },
+  { name: 'Fresh Tomatoes 1kg', price: 'UGX 6,500', img: A('/cat-agriculture.png'), tag: 'Mbale' },
+  { name: 'Hass Avocado (each)', price: 'UGX 2,000', img: A('/cat-agriculture.png'), tag: 'Mityana' },
 ]
 
 function FarmFresh() {
@@ -375,7 +376,7 @@ function SellBanner() {
       <div className="grid md:grid-cols-2 overflow-hidden rounded-3xl bg-sand shadow-sm">
         <div className="relative h-64 md:h-auto overflow-hidden">
           <motion.img
-            src="/banner-seller.png"
+            src={A('/banner-seller.png')}
             alt="Ugandan entrepreneur packing delivery boxes"
             loading="lazy"
             style={{ y: imgY }}
@@ -428,7 +429,7 @@ const FloatPhone = memo(function FloatPhone() {
       className="relative"
     >
       <img
-        src="/banner-app.png"
+        src={A('/banner-app.png')}
         alt="Kikuubo app on a smartphone"
         loading="lazy"
         className="rounded-3xl shadow-2xl rotate-2 w-full max-w-sm mx-auto border-4 border-cream/10"
@@ -458,8 +459,8 @@ function AppDownload() {
             </button>
           </motion.div>
           <motion.div variants={stagger} className="mt-6 flex items-center gap-3">
-            <motion.img variants={fadeUp} src="/payment-momo.svg" alt="MTN MoMo" className="h-9 w-auto" />
-            <motion.img variants={fadeUp} src="/payment-airtel.svg" alt="Airtel Money" className="h-9 w-auto" />
+            <motion.img variants={fadeUp} src={A('/payment-momo.svg')} alt="MTN MoMo" className="h-9 w-auto" />
+            <motion.img variants={fadeUp} src={A('/payment-airtel.svg')} alt="Airtel Money" className="h-9 w-auto" />
           </motion.div>
           <motion.form
             variants={fadeUp}

@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import { motion } from 'framer-motion'
 import { ChevronDown, Send, CreditCard, Truck, BadgeCheck } from 'lucide-react'
 import { categories } from '@/data/products'
+import { A } from '@/lib/asset'
 
 const columns = [
   {
@@ -71,7 +72,7 @@ export default function Footer() {
       <div className="px-4 md:px-8 max-w-7xl mx-auto py-12 md:py-16">
         <div className="grid md:grid-cols-6 gap-8">
           <div className="md:col-span-2">
-            <img src="/logo.svg" alt="Kikuubo" className="h-10 w-auto mb-4 [filter:brightness(0)_invert(1)] opacity-90" />
+            <img src={A('/logo.svg')} alt="Kikuubo" className="h-10 w-auto mb-4 [filter:brightness(0)_invert(1)] opacity-90" />
             <p className="text-sm text-cream/60 mb-6 max-w-xs">
               Uganda's Market, In Your Pocket. Phones, fashion, fresh farm produce — pay with mobile money, delivered anywhere in Uganda.
             </p>
@@ -99,8 +100,8 @@ export default function Footer() {
         <div className="mt-10 pt-8 border-t border-cream/10">
           <p className="text-xs uppercase tracking-widest text-cream/40 mb-4">We accept</p>
           <div className="flex flex-wrap items-center gap-3">
-            <img src="/payment-momo.svg" alt="MTN MoMo" className="h-9 w-auto" />
-            <img src="/payment-airtel.svg" alt="Airtel Money" className="h-9 w-auto" />
+            <img src={A('/payment-momo.svg')} alt="MTN MoMo" className="h-9 w-auto" />
+            <img src={A('/payment-airtel.svg')} alt="Airtel Money" className="h-9 w-auto" />
             <span className="flex items-center gap-2 rounded-lg border border-cream/15 px-4 h-9 text-sm font-semibold text-cream/80">
               <CreditCard size={15} /> VISA
             </span>

@@ -1,5 +1,6 @@
 import type { Product } from '@/data/products'
 import { products } from '@/data/products'
+import { A } from '@/lib/asset'
 
 export interface ShopItem extends Product {
   brand: string
@@ -59,7 +60,7 @@ export const categoryConfigs: Record<Product['category'], CategoryConfig> = {
     label: 'Phones & Tablets',
     bannerClass: 'from-sunset via-sunset-hover to-sunset-deep',
     chipClass: 'bg-white/15 text-white',
-    image: '/cat-phones.png',
+    image: A('/cat-phones.png'),
     count: '2,347',
     from: 'UGX 120,000',
     freeNote: 'Free delivery on 500+',
@@ -85,7 +86,7 @@ export const categoryConfigs: Record<Product['category'], CategoryConfig> = {
     label: 'Electronics',
     bannerClass: 'from-night via-cocoa to-night',
     chipClass: 'bg-white/15 text-white',
-    image: '/cat-electronics.png',
+    image: A('/cat-electronics.png'),
     count: '1,852',
     from: 'UGX 45,000',
     freeNote: 'Free delivery on 300+',
@@ -107,7 +108,7 @@ export const categoryConfigs: Record<Product['category'], CategoryConfig> = {
     label: 'Fashion',
     bannerClass: 'from-[#9D174D] via-[#BE185D] to-[#831843]',
     chipClass: 'bg-white/15 text-white',
-    image: '/cat-fashion.png',
+    image: A('/cat-fashion.png'),
     count: '3,105',
     from: 'UGX 25,000',
     freeNote: 'Free delivery on 800+',
@@ -129,7 +130,7 @@ export const categoryConfigs: Record<Product['category'], CategoryConfig> = {
     label: 'Agriculture & Farm Produce',
     bannerClass: 'from-leaf via-[#15803D] to-[#14532D]',
     chipClass: 'bg-white/15 text-white',
-    image: '/cat-agriculture.png',
+    image: A('/cat-agriculture.png'),
     count: '943',
     from: 'UGX 5,000',
     freeNote: 'Farm-fresh daily delivery',
@@ -151,7 +152,7 @@ export const categoryConfigs: Record<Product['category'], CategoryConfig> = {
     label: 'Home & Living',
     bannerClass: 'from-cocoa via-[#5A3D2B] to-night',
     chipClass: 'bg-white/15 text-white',
-    image: '/cat-home.png',
+    image: A('/cat-home.png'),
     count: '1,418',
     from: 'UGX 30,000',
     freeNote: 'Free delivery on 200+',
@@ -171,11 +172,11 @@ export const categoryConfigs: Record<Product['category'], CategoryConfig> = {
 }
 
 const images: Record<Product['category'], string[]> = {
-  phones: ['/product-phone-1.png'],
-  electronics: ['/product-tv.png', '/product-headphones.png'],
-  fashion: ['/product-dress.png', '/product-sneakers.png'],
-  agriculture: ['/product-matooke.png', '/product-beans.png'],
-  home: ['/product-blender.png', '/product-sneakers.png'],
+  phones: [A('/product-phone-1.png')],
+  electronics: [A('/product-tv.png'), A('/product-headphones.png')],
+  fashion: [A('/product-dress.png'), A('/product-sneakers.png')],
+  agriculture: [A('/product-matooke.png'), A('/product-beans.png')],
+  home: [A('/product-blender.png'), A('/product-sneakers.png')],
 }
 
 /** Build 24 items for a category: base data products + pool variants. */

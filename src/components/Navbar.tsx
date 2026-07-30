@@ -6,6 +6,7 @@ import {
   Home, Store, User, HelpCircle, Zap, BadgePercent,
 } from 'lucide-react'
 import { categories } from '@/data/products'
+import { A } from '@/lib/asset'
 
 const bottomNav = [
   { to: '/', label: 'Home', icon: Home },
@@ -52,7 +53,7 @@ export default function Navbar() {
             </button>
 
             <Link to="/" className="flex items-center shrink-0" aria-label="Kikuubo home">
-              <img src="/logo.svg" alt="Kikuubo" className="h-9 w-auto" />
+              <img src={A('/logo.svg')} alt="Kikuubo" className="h-9 w-auto" />
             </Link>
 
             {/* Desktop mega-menu trigger */}
@@ -182,7 +183,7 @@ export default function Navbar() {
               className="fixed inset-y-0 left-0 z-[70] w-[84%] max-w-sm bg-cream shadow-2xl flex flex-col"
             >
               <div className="flex items-center justify-between p-4 border-b border-sand">
-                <img src="/logo.svg" alt="Kikuubo" className="h-8 w-auto" />
+                <img src={A('/logo.svg')} alt="Kikuubo" className="h-8 w-auto" />
                 <button onClick={() => setDrawerOpen(false)} aria-label="Close menu" className="p-2 text-night">
                   <X size={22} />
                 </button>

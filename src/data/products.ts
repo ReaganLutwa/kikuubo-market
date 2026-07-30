@@ -1,3 +1,4 @@
+import { A } from '@/lib/asset'
 export interface Product {
   id: string
   name: string
@@ -20,7 +21,7 @@ export const products: Product[] = [
   {
     id: 'tecno-spark-20',
     name: 'Tecno Spark 20 Pro, 8GB RAM + 256GB, 108MP Camera',
-    image: '/product-phone-1.png',
+    image: A('/product-phone-1.png'),
     price: 429000,
     oldPrice: 649000,
     rating: 4.6,
@@ -35,7 +36,7 @@ export const products: Product[] = [
   {
     id: 'samsung-a15',
     name: 'Samsung Galaxy A15, 6GB + 128GB Dual SIM',
-    image: '/product-phone-1.png',
+    image: A('/product-phone-1.png'),
     price: 565000,
     oldPrice: 720000,
     rating: 4.7,
@@ -49,7 +50,7 @@ export const products: Product[] = [
   {
     id: 'hisense-43-tv',
     name: 'Hisense 43" Smart Full HD TV with Free-to-Air Decoder',
-    image: '/product-tv.png',
+    image: A('/product-tv.png'),
     price: 850000,
     oldPrice: 1150000,
     rating: 4.5,
@@ -64,7 +65,7 @@ export const products: Product[] = [
   {
     id: 'wireless-headphones',
     name: 'BassPro Wireless Over-Ear Headphones, 40h Battery',
-    image: '/product-headphones.png',
+    image: A('/product-headphones.png'),
     price: 145000,
     oldPrice: 220000,
     rating: 4.4,
@@ -78,7 +79,7 @@ export const products: Product[] = [
   {
     id: 'ankara-dress',
     name: 'Elegant Ankara Print Dress, Bold Orange & Teal (S–XL)',
-    image: '/product-dress.png',
+    image: A('/product-dress.png'),
     price: 95000,
     oldPrice: 140000,
     rating: 4.8,
@@ -92,7 +93,7 @@ export const products: Product[] = [
   {
     id: 'running-sneakers',
     name: 'StrideFlex Running Sneakers, White/Orange (Unisex)',
-    image: '/product-sneakers.png',
+    image: A('/product-sneakers.png'),
     price: 120000,
     oldPrice: 185000,
     rating: 4.5,
@@ -106,7 +107,7 @@ export const products: Product[] = [
   {
     id: 'kitchen-blender',
     name: 'VitaMix-style 2L Kitchen Blender, Stainless Steel, 500W',
-    image: '/product-blender.png',
+    image: A('/product-blender.png'),
     price: 165000,
     oldPrice: 240000,
     rating: 4.3,
@@ -120,7 +121,7 @@ export const products: Product[] = [
   {
     id: 'matooke-bunch',
     name: 'Fresh Green Matooke Bunch — Direct from Mityana Farms',
-    image: '/product-matooke.png',
+    image: A('/product-matooke.png'),
     price: 18000,
     rating: 4.9,
     reviews: 954,
@@ -134,7 +135,7 @@ export const products: Product[] = [
   {
     id: 'dry-beans-5kg',
     name: 'Mixed Dry Beans, 5kg Burlap Sack — Masaka Harvest',
-    image: '/product-beans.png',
+    image: A('/product-beans.png'),
     price: 32000,
     oldPrice: 40000,
     rating: 4.7,
@@ -148,7 +149,7 @@ export const products: Product[] = [
   {
     id: 'flash-phone-x',
     name: 'Xiaomi Redmi Note 13, 8GB + 256GB, 120Hz AMOLED',
-    image: '/product-phone-1.png',
+    image: A('/product-phone-1.png'),
     price: 899000,
     oldPrice: 1360000,
     rating: 4.6,
@@ -183,9 +184,9 @@ export interface Category {
 }
 
 export const categories: Category[] = [
-  { id: 'phones', label: 'Phones', image: '/cat-phones.png', count: '2,300+ items' },
-  { id: 'electronics', label: 'Electronics', image: '/cat-electronics.png', count: '1,850+ items' },
-  { id: 'fashion', label: 'Fashion', image: '/cat-fashion.png', count: '3,100+ items' },
-  { id: 'agriculture', label: 'Agriculture & Farm Produce', image: '/cat-agriculture.png', count: '940+ items' },
-  { id: 'home', label: 'Home & Living', image: '/cat-home.png', count: '1,420+ items' },
+  { id: 'phones', label: 'Phones', image: A('/cat-phones.png'), count: '2,300+ items' },
+  { id: 'electronics', label: 'Electronics', image: A('/cat-electronics.png'), count: '1,850+ items' },
+  { id: 'fashion', label: 'Fashion', image: A('/cat-fashion.png'), count: '3,100+ items' },
+  { id: 'agriculture', label: 'Agriculture & Farm Produce', image: A('/cat-agriculture.png'), count: '940+ items' },
+  { id: 'home', label: 'Home & Living', image: A('/cat-home.png'), count: '1,420+ items' },
 ]
