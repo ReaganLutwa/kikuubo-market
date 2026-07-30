@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 56" width="220" height="56" role="img" aria-label="Kikuubo">
+  <defs>
+    <linearGradient id="kikuuboMark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F97316"/>
+      <stop offset="1" stop-color="#EA580C"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded-square mark with awning -->
+  <rect x="2" y="4" width="48" height="48" rx="12" fill="url(#kikuuboMark)"/>
+  <!-- Market stall awning silhouette formed by the K -->
+  <g fill="#FFF8F0">
+    <path d="M14 18h6v8.2l7.4-8.2h7.2l-8 8.6 8.6 11.4h-7.4l-5.4-7.8-2.4 2.6V39h-6V18z"/>
+    <path d="M12 12h32l-3.2 5H15.2L12 12z" opacity="0.9"/>
+    <path d="M15.2 17h6.4l-2.1 3.4h-6.4l2.1-3.4z" opacity="0.75"/>
+    <path d="M28 17h6.4l-2.1 3.4h-6.4l2.1-3.4z" opacity="0.75"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="62" y="38" font-family="Sora, Inter, sans-serif" font-weight="800" font-size="28" letter-spacing="-0.5" fill="#1A120B">Kikuubo</text>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 148 48" width="148" height="48" role="img" aria-label="MTN MoMo">
+  <rect x="1" y="1" width="146" height="46" rx="10" fill="#FFCC00" stroke="#E0B400" stroke-width="1.5"/>
+  <circle cx="26" cy="24" r="13" fill="#1A120B"/>
+  <text x="26" y="28.5" text-anchor="middle" font-family="Sora, Inter, sans-serif" font-weight="800" font-size="11" fill="#FFCC00">M</text>
+  <text x="46" y="21" font-family="Sora, Inter, sans-serif" font-weight="800" font-size="13" fill="#1A120B">MTN</text>
+  <text x="46" y="37" font-family="Sora, Inter, sans-serif" font-weight="700" font-size="12" fill="#1A120B">MoMo</text>
+</svg>
