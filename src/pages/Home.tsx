@@ -4,12 +4,12 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import type { Variants, MotionValue } from 'framer-motion'
 import {
   Search, Zap, Truck, BadgePercent, ArrowRight, Wheat, Smartphone,
-  Percent, Timer, Apple, Play,
+  Percent, Timer, Apple, Play, Recycle,
 } from 'lucide-react'
 import ProductCard from '@/components/ProductCard'
 import FlashSale from '@/components/home/FlashSale'
 import TrustStrip from '@/components/home/TrustStrip'
-import { categories, topDeals } from '@/data/products'
+import { categories, topDeals, refurbDeals } from '@/data/products'
 import { A } from '@/lib/asset'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
@@ -173,7 +173,7 @@ function CategoryStrip() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.2 }}
-        className="flex md:grid md:grid-cols-5 gap-6 md:gap-4 overflow-x-auto no-scrollbar -mx-4 px-4 md:mx-0 md:px-0"
+        className="flex md:grid md:grid-cols-10 gap-6 md:gap-4 overflow-x-auto no-scrollbar -mx-4 px-4 md:mx-0 md:px-0"
       >
         {categories.map((c) => (
           <motion.div key={c.id} variants={{ hidden: { opacity: 0, scale: 0.6 }, show: { opacity: 1, scale: 1, transition: { type: 'spring', bounce: 0.4 } } }}>
@@ -183,7 +183,7 @@ function CategoryStrip() {
                   src={c.image}
                   alt={c.label}
                   loading="lazy"
-                  className="h-24 w-24 rounded-full object-cover transition-transform duration-500 group-hover:scale-108 group-hover:scale-110"
+                  className="h-24 w-24 md:h-16 md:w-16 rounded-full object-cover transition-transform duration-500 group-hover:scale-108 group-hover:scale-110"
                 />
               </span>
               <span className="text-center">
@@ -218,9 +218,12 @@ function CategoryBlocks() {
     },
   ]
   const small = [
+    { title: 'Appliances', img: A('/cat-appliances.png'), to: '/category?c=appliances' },
     { title: 'Electronics', img: A('/cat-electronics.png'), to: '/category?c=electronics' },
-    { title: 'Fashion', img: A('/cat-fashion.png'), to: '/category?c=fashion' },
-    { title: 'Home & Living', img: A('/cat-home.png'), to: '/category?c=home' },
+    { title: "Women's Fashion", img: A('/cat-fashion.png'), to: '/category?c=womens-fashion' },
+    { title: 'Home & Kitchen', img: A('/cat-home.png'), to: '/category?c=home' },
+    { title: 'Refurbished Tech', img: A('/cat-refurb.png'), to: '/category?c=refurbished' },
+    { title: 'Smart Home & Solar', img: A('/product-solar.png'), to: '/category?c=smart-home' },
   ]
 
   return (
@@ -295,6 +298,39 @@ function TopDeals() {
           </motion.div>
         ))}
       </motion.div>
+    </section>
+  )
+}
+
+/* ---------------- Refurbished Deals ---------------- */
+
+function Refurbished() {
+  return (
+    <section className="bg-[linear-gradient(135deg,#0F766E_0%,#115E59_60%,#0B3B38_100%)] text-white">
+      <div className="px-4 md:px-8 max-w-7xl mx-auto py-12 md:py-16">
+        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+          <div className="flex items-center justify-between mb-2">
+            <motion.h2 variants={fadeUp} className="font-sora font-extrabold text-2xl md:text-3xl flex items-center gap-3">
+              <Recycle size={30} className="text-teal-200" /> Refurbished Deals
+            </motion.h2>
+            <motion.div variants={fadeUp}>
+              <Link to="/category?c=refurbished" className="flex items-center gap-1.5 text-teal-200 font-semibold text-sm hover:gap-3 transition-all">
+                View all <ArrowRight size={16} />
+              </Link>
+            </motion.div>
+          </div>
+          <motion.p variants={fadeUp} className="text-white/80 mb-8">
+            Grade A certified · 6-month warranty · Up to 40% off new prices
+          </motion.p>
+          <motion.div variants={stagger} className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
+            {refurbDeals.map((p) => (
+              <motion.div key={p.id} variants={fadeUp} className="rounded-3xl bg-cream text-night overflow-hidden">
+                <ProductCard product={p} />
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </div>
     </section>
   )
 }
@@ -492,6 +528,7 @@ export default function Home() {
       <FlashSale />
       <CategoryBlocks />
       <TopDeals />
+      <Refurbished />
       <FarmFresh />
       <SellBanner />
       <AppDownload />

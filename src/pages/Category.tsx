@@ -2,14 +2,14 @@ import { useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  ChevronRight, SlidersHorizontal, ArrowUpDown, Check, X, Truck, History,
+  ChevronRight, ChevronDown, SlidersHorizontal, ArrowUpDown, Check, X, Truck, History, LayoutGrid,
 } from 'lucide-react'
 import ProductCard from '@/components/ProductCard'
 import FilterPanel, { defaultFilters, countActive } from '@/components/shop/FilterPanel'
 import type { FilterState } from '@/components/shop/FilterPanel'
 import { buildCatalog, categoryConfigs } from '@/components/shop/catalog'
-import type { Product } from '@/data/products'
-import { products } from '@/data/products'
+import type { Product, CategoryId } from '@/data/products'
+import { products, categoryTree } from '@/data/products'
 
 type SortKey = 'popular' | 'newest' | 'price-asc' | 'price-desc' | 'discount'
 
@@ -30,7 +30,7 @@ function discountPct(p: Product) {
 export default function Category() {
   const [params, setParams] = useSearchParams()
   const rawCat = params.get('c') ?? 'phones'
-  const catId = (rawCat in categoryConfigs ? rawCat : 'phones') as Product['category']
+  const catId = (rawCat in categoryConfigs ? rawCat : 'phones') as CategoryId
   const cfg = categoryConfigs[catId]
 
   const [activeSub, setActiveSub] = useState(0)
@@ -39,6 +39,8 @@ export default function Category() {
   const [filters, setFilters] = useState<FilterState>(defaultFilters)
   const [draft, setDraft] = useState<FilterState>(defaultFilters)
   const [sheetOpen, setSheetOpen] = useState(false)
+  const [catSheetOpen, setCatSheetOpen] = useState(false)
+  const [expandedCat, setExpandedCat] = useState<CategoryId | null>(null)
   const [shown, setShown] = useState(PAGE_SIZE)
 
   const catalog = useMemo(() => buildCatalog(catId), [catId])
@@ -132,6 +134,35 @@ export default function Category() {
         </div>
       </motion.section>
 
+      {/* Mobile category strip */}
+      <div className="md:hidden mt-4 flex items-stretch gap-3 overflow-x-auto no-scrollbar -mx-4 px-4">
+        <button
+          onClick={() => setCatSheetOpen(true)}
+          className="shrink-0 flex flex-col items-center justify-center gap-1 w-16 rounded-2xl bg-night text-cream"
+        >
+          <LayoutGrid size={18} />
+          <span className="text-[10px] font-semibold">All</span>
+        </button>
+        {categoryTree.map((c) => (
+          <button
+            key={c.id}
+            onClick={() => setCategory(c.id)}
+            className="shrink-0 flex flex-col items-center gap-1.5 w-16"
+          >
+            <span
+              className={`flex h-12 w-12 items-center justify-center rounded-2xl transition-colors ${
+                c.id === catId ? 'bg-sunset text-white shadow-md' : 'bg-white text-night/70'
+              }`}
+            >
+              <c.icon size={20} />
+            </span>
+            <span className={`text-[10px] leading-tight text-center line-clamp-2 ${c.id === catId ? 'font-bold text-sunset' : 'text-night/60'}`}>
+              {c.name}
+            </span>
+          </button>
+        ))}
+      </div>
+
       {/* Sub-category pills */}
       <div className="mt-5 flex gap-2 overflow-x-auto no-scrollbar -mx-4 px-4 md:mx-0 md:px-0">
         {cfg.subs.map((s, i) => (
@@ -208,9 +239,67 @@ export default function Category() {
       </div>
 
       <div className="mt-4 md:mt-6 grid md:grid-cols-[240px_1fr] gap-8">
-        {/* Desktop sidebar */}
+        {/* Desktop sidebar: all categories + filters */}
         <aside className="hidden md:block">
-          <div className="sticky top-24 rounded-2xl bg-white p-5 shadow-sm">
+          <div className="sticky top-24 space-y-4">
+            <nav className="rounded-2xl bg-white shadow-sm overflow-hidden">
+              <h3 className="font-sora font-bold px-5 pt-4 pb-2 text-sm">All Categories</h3>
+              <ul className="max-h-[55vh] overflow-y-auto pb-3 px-2">
+                {categoryTree.map((c) => {
+                  const active = c.id === catId
+                  const expanded = active || expandedCat === c.id
+                  return (
+                    <li key={c.id}>
+                      <div
+                        className={`flex items-center gap-2 rounded-xl px-3 py-2 cursor-pointer transition-colors ${
+                          active ? 'bg-sunset/10 text-sunset font-semibold' : 'text-night/70 hover:bg-sand'
+                        }`}
+                        onClick={() => (active ? setExpandedCat((v) => (v ? null : c.id)) : setCategory(c.id))}
+                      >
+                        <c.icon size={16} className={active ? 'text-sunset' : 'text-night/40'} />
+                        <span className="flex-1 text-[13px] leading-tight">{c.name}</span>
+                        <button
+                          aria-label={`Expand ${c.name}`}
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            setExpandedCat((v) => (v === c.id ? null : c.id))
+                          }}
+                          className="p-0.5"
+                        >
+                          <ChevronDown size={14} className={`transition-transform ${expanded ? 'rotate-180' : ''}`} />
+                        </button>
+                      </div>
+                      <AnimatePresence initial={false}>
+                        {expanded && (
+                          <motion.ul
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.22 }}
+                            className="overflow-hidden pl-9 pr-2"
+                          >
+                            {c.subs.map((s, si) => (
+                              <li key={s}>
+                                <button
+                                  onClick={() => {
+                                    if (!active) setCategory(c.id)
+                                    setActiveSub(si)
+                                  }}
+                                  className="block w-full text-left text-xs py-1.5 text-night/55 hover:text-sunset"
+                                >
+                                  {s}
+                                </button>
+                              </li>
+                            ))}
+                          </motion.ul>
+                        )}
+                      </AnimatePresence>
+                    </li>
+                  )
+                })}
+              </ul>
+            </nav>
+            <div className="rounded-2xl bg-white p-5 shadow-sm">
             <div className="flex items-center justify-between mb-5">
               <h3 className="font-sora font-bold">Filters</h3>
               {activeCount > 0 && (
@@ -223,6 +312,7 @@ export default function Category() {
               )}
             </div>
             <FilterPanel brands={cfg.brands} value={filters} onChange={(f) => { setFilters(f); setShown(PAGE_SIZE) }} />
+            </div>
           </div>
         </aside>
 
@@ -365,6 +455,73 @@ export default function Category() {
                 >
                   Show results
                 </button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Mobile "All Categories" bottom sheet */}
+      <AnimatePresence>
+        {catSheetOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[60] bg-night/50 md:hidden"
+              onClick={() => setCatSheetOpen(false)}
+            />
+            <motion.div
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              exit={{ y: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 260 }}
+              className="fixed inset-x-0 bottom-0 z-[70] md:hidden max-h-[85dvh] rounded-t-3xl bg-cream flex flex-col"
+            >
+              <div className="flex items-center justify-between p-4 border-b border-sand">
+                <h3 className="font-sora font-bold">All Categories</h3>
+                <button onClick={() => setCatSheetOpen(false)} aria-label="Close categories" className="p-1">
+                  <X size={20} />
+                </button>
+              </div>
+              <div className="flex-1 overflow-y-auto p-3">
+                {categoryTree.map((c) => (
+                  <details key={c.id} className="rounded-2xl mb-1.5 bg-white overflow-hidden" open={c.id === catId}>
+                    <summary
+                      className="flex items-center gap-3 px-4 py-3 cursor-pointer list-none"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        setCategory(c.id)
+                        setCatSheetOpen(false)
+                      }}
+                    >
+                      <span
+                        className={`flex h-9 w-9 items-center justify-center rounded-xl ${
+                          c.id === catId ? 'bg-sunset text-white' : 'bg-sand text-night/70'
+                        }`}
+                      >
+                        <c.icon size={17} />
+                      </span>
+                      <span className={`flex-1 text-sm ${c.id === catId ? 'font-bold text-sunset' : 'font-medium'}`}>{c.name}</span>
+                      <span className="text-[10px] text-night/40">{c.count}</span>
+                    </summary>
+                    <div className="px-4 pb-3 pt-1 grid grid-cols-2 gap-x-3">
+                      {c.subs.map((s) => (
+                        <button
+                          key={s}
+                          onClick={() => {
+                            setCategory(c.id)
+                            setCatSheetOpen(false)
+                          }}
+                          className="text-left text-xs py-1.5 text-night/60 hover:text-sunset"
+                        >
+                          {s}
+                        </button>
+                      ))}
+                    </div>
+                  </details>
+                ))}
               </div>
             </motion.div>
           </>

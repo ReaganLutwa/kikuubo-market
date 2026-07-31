@@ -1,8 +1,13 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { CheckCircle2, ChevronLeft, Loader2, PartyPopper } from 'lucide-react'
+import { Check, CheckCircle2, ChevronLeft, ChevronsUpDown, Loader2, PartyPopper, Search } from 'lucide-react'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import {
+  Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList,
+} from '@/components/ui/command'
+import { categorySearchIndex, categoryTree } from '@/data/products'
 
-const categories = ['Phones', 'Electronics', 'Fashion', 'Agriculture', 'Home & Living', 'Other']
+const categories = categorySearchIndex
 
 interface FormData {
   business: string
@@ -37,6 +42,7 @@ export default function SellerForm() {
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({})
   const [shakeKey, setShakeKey] = useState(0)
   const [status, setStatus] = useState<'idle' | 'submitting' | 'done'>('idle')
+  const [catOpen, setCatOpen] = useState(false)
 
   const set = <K extends keyof FormData>(key: K, value: FormData[K]) => {
     setData((d) => ({ ...d, [key]: value }))
@@ -162,19 +168,53 @@ export default function SellerForm() {
               {field('phone', 'Phone number', { placeholder: '+256 7XX XXX XXX', type: 'tel' })}
               <div>
                 <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-cream/60">
-                  Category
+                  Product category
                 </label>
-                <select
-                  className={`${inputBase} appearance-none ${errors.category ? 'border-airtel ring-2 ring-airtel/40' : ''} ${data.category ? '' : 'text-cream/40'}`}
-                  value={data.category}
-                  onChange={(e) => set('category', e.target.value)}
-                >
-                  <option value="" disabled className="text-night">What do you sell?</option>
-                  {categories.map((c) => (
-                    <option key={c} value={c} className="text-night">{c}</option>
-                  ))}
-                </select>
+                <Popover open={catOpen} onOpenChange={setCatOpen}>
+                  <PopoverTrigger asChild>
+                    <button
+                      type="button"
+                      role="combobox"
+                      aria-expanded={catOpen}
+                      className={`${inputBase} flex items-center justify-between text-left ${errors.category ? 'border-airtel ring-2 ring-airtel/40' : ''} ${data.category ? '' : 'text-cream/40'}`}
+                    >
+                      <span className="truncate">{data.category || 'Search your category… e.g. "fri"'}</span>
+                      <ChevronsUpDown size={16} className="ml-2 shrink-0 text-cream/40" />
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
+                    <Command>
+                      <CommandInput placeholder="Type to search… e.g. fridge, laptop, matooke" />
+                      <CommandList>
+                        <CommandEmpty>
+                          <div className="flex flex-col items-center gap-1 py-4">
+                            <Search size={18} className="text-night/30" />
+                            <span>No category found — try another word.</span>
+                          </div>
+                        </CommandEmpty>
+                        <CommandGroup>
+                          {categories.map((c) => (
+                            <CommandItem
+                              key={c.value}
+                              value={c.value}
+                              onSelect={(v) => {
+                                set('category', v)
+                                setCatOpen(false)
+                              }}
+                            >
+                              <Check size={14} className={data.category === c.value ? 'opacity-100 text-sunset' : 'opacity-0'} />
+                              {c.label}
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
                 {errors.category && <p className="mt-1 text-xs font-medium text-airtel">{errors.category}</p>}
+                <p className="mt-1 text-[11px] text-cream/40">
+                  {categoryTree.length} categories — search yours, e.g. "fri" → Appliances → Fridges &amp; Freezers
+                </p>
               </div>
               <div className="sm:col-span-2">{field('location', 'Shop location', { placeholder: 'e.g. Owino Market, Kampala' })}</div>
               <div className="sm:col-span-2 mt-2">

@@ -55,7 +55,7 @@ const budgetItems: Product[] = [
     rating: 4.6,
     reviews: 312,
     vendor: 'Owino Traders',
-    category: 'fashion',
+    category: 'mens-fashion',
   },
   {
     id: 'avocado-basket',
