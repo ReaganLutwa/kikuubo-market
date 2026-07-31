@@ -10,6 +10,7 @@ import Product from '@/pages/Product'
 import Cart from '@/pages/Cart'
 import Sell from '@/pages/Sell'
 import Deals from '@/pages/Deals'
+import Legal from '@/pages/Legal'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -35,6 +36,11 @@ export default function App() {
         <Route path="cart" element={<Cart />} />
         <Route path="sell" element={<Sell />} />
         <Route path="deals" element={<Deals />} />
+        <Route path="privacy" element={<Legal />} />
+        <Route path="terms" element={<Legal />} />
+        <Route path="returns" element={<Legal />} />
+        <Route path="cookies" element={<Legal />} />
+        <Route path="seller-terms" element={<Legal />} />
       </Route>
     </Routes>
   )

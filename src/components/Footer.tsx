@@ -13,8 +13,10 @@ const columns = [
   {
     title: 'Customer Service',
     links: [
-      { label: 'Track your order', to: '/cart' },
-      { label: 'Returns & refunds', to: '/cart' },
+      { label: 'Track Order', to: '/cart' },
+      { label: 'Return & Refund Policy', to: '/returns' },
+      { label: 'Privacy Policy', to: '/privacy' },
+      { label: 'Cookie Notice', to: '/cookies' },
       { label: 'Payment options', to: '/cart' },
       { label: 'Delivery info', to: '/cart' },
     ],
@@ -25,6 +27,7 @@ const columns = [
       { label: 'Start selling', to: '/sell' },
       { label: 'Seller pricing', to: '/sell' },
       { label: 'Seller hub', to: '/sell' },
+      { label: 'Seller Terms & Credit', to: '/seller-terms' },
     ],
   },
   {
@@ -115,11 +118,12 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 pt-6 border-t border-cream/10 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-cream/40">
-          <p>🇺🇬 Made in Kampala · © 2025 Kikuubo Uganda Ltd</p>
-          <div className="flex gap-6">
-            <Link to="/" className="hover:text-sunset transition-colors">Privacy</Link>
-            <Link to="/" className="hover:text-sunset transition-colors">Terms</Link>
-            <Link to="/" className="hover:text-sunset transition-colors">Cookies</Link>
+          <p>🇺🇬 Made in Kampala · © 2026 Kikuubo Uganda Ltd</p>
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+            <Link to="/terms" className="hover:text-sunset transition-colors">Terms & Conditions</Link>
+            <Link to="/privacy" className="hover:text-sunset transition-colors">Privacy</Link>
+            <Link to="/returns" className="hover:text-sunset transition-colors">Returns</Link>
+            <Link to="/cookies" className="hover:text-sunset transition-colors">Cookies</Link>
           </div>
         </div>
       </div>
