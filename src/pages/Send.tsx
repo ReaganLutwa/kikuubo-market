@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import type { Variants } from 'framer-motion'
 import { Bike, MapPin, Navigation, Fuel, Clock, Package, Camera, CheckCircle2, X } from 'lucide-react'
 import ServiceSwitcher from '@/components/ServiceSwitcher'
+import LocationPicker from '@/components/LocationPicker'
 import { formatUGX } from '@/data/products'
 import { A } from '@/lib/asset'
 
@@ -69,6 +70,12 @@ export default function Send() {
                   className="w-full bg-transparent text-sm outline-none"
                   placeholder="Pickup from: Home, Kampala…"
                 />
+                <LocationPicker
+                  compact
+                  onConfirm={(loc) => setPickup(loc.label)}
+                  triggerLabel="Pick pickup point on map"
+                  title="Where should the boda pick up?"
+                />
               </label>
               <label className="flex items-center gap-3 rounded-2xl border border-night/10 px-4 py-3">
                 <Navigation size={17} className="text-purple-700 shrink-0" />
@@ -77,6 +84,12 @@ export default function Send() {
                   onChange={(e) => setDrop(e.target.value)}
                   className="w-full bg-transparent text-sm outline-none"
                   placeholder="Where is your drop?"
+                />
+                <LocationPicker
+                  compact
+                  onConfirm={(loc) => setDrop(loc.label)}
+                  triggerLabel="Pick drop point on map"
+                  title="Where is your drop?"
                 />
               </label>
             </div>

@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Check, CheckCircle2, ChevronLeft, ChevronsUpDown, Loader2, PartyPopper, Search } from 'lucide-react'
+import { Check, CheckCircle2, ChevronLeft, ChevronsUpDown, Loader2, MapPin, PartyPopper, Search } from 'lucide-react'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import LocationPicker from '@/components/LocationPicker'
+import type { PickedLocation } from '@/components/LocationPicker'
 import {
   Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList,
 } from '@/components/ui/command'
@@ -43,6 +45,8 @@ export default function SellerForm() {
   const [shakeKey, setShakeKey] = useState(0)
   const [status, setStatus] = useState<'idle' | 'submitting' | 'done'>('idle')
   const [catOpen, setCatOpen] = useState(false)
+  const [shopLoc, setShopLoc] = useState<PickedLocation | null>(null)
+  const [shopLocError, setShopLocError] = useState<string | undefined>(undefined)
 
   const set = <K extends keyof FormData>(key: K, value: FormData[K]) => {
     setData((d) => ({ ...d, [key]: value }))
@@ -57,13 +61,15 @@ export default function SellerForm() {
       if (!/^(?:\+256|0)\d{9}$/.test(data.phone.replace(/\s/g, ''))) e.phone = 'Enter a valid Ugandan number'
       if (!data.category) e.category = 'Choose a category'
       if (!data.location.trim()) e.location = 'Enter your location'
+      if (!shopLoc) setShopLocError('Pick your shop location so boda riders can find you')
+      else setShopLocError(undefined)
     } else {
       if (!/^(?:\+256|0)\d{9}$/.test(data.momoNumber.replace(/\s/g, ''))) e.momoNumber = 'Enter a valid MoMo number'
       if (!data.pickup.trim()) e.pickup = 'Enter a pickup address'
       if (!data.agreed) e.agreed = 'You must agree to the seller terms'
     }
     setErrors(e)
-    if (Object.keys(e).length > 0) {
+    if (Object.keys(e).length > 0 || (s === 0 && !shopLoc)) {
       setShakeKey((k) => k + 1)
       return false
     }
@@ -123,6 +129,12 @@ export default function SellerForm() {
           Your shop <span className="font-semibold text-sunset">{data.business}</span> is being set up.
           Our team will call you within 24 hours to verify your MoMo payout.
         </p>
+        {shopLoc && (
+          <p className="flex max-w-sm items-center justify-center gap-1.5 text-xs text-cream/50">
+            <MapPin size={13} className="shrink-0 text-sunset" />
+            Shop pinned at {shopLoc.label} ({shopLoc.lat.toFixed(4)}, {shopLoc.lng.toFixed(4)})
+          </p>
+        )}
       </motion.div>
     )
   }
@@ -217,6 +229,44 @@ export default function SellerForm() {
                 </p>
               </div>
               <div className="sm:col-span-2">{field('location', 'Shop location', { placeholder: 'e.g. Owino Market, Kampala' })}</div>
+              <div className="sm:col-span-2">
+                <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-cream/60">
+                  Shop location on map
+                </label>
+                {shopLoc ? (
+                  <div
+                    className={`flex items-center gap-3 rounded-xl bg-white/5 border px-4 py-3 ${shopLocError ? 'border-airtel ring-2 ring-airtel/40' : 'border-white/15'}`}
+                  >
+                    <MapPin size={18} className="shrink-0 text-sunset" />
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-sm font-medium text-cream">{shopLoc.label}</p>
+                      <p className="text-[11px] text-cream/40">
+                        {shopLoc.lat.toFixed(5)}, {shopLoc.lng.toFixed(5)} — boda riders will navigate here
+                      </p>
+                    </div>
+                    <LocationPicker
+                      value={shopLoc}
+                      onConfirm={(loc) => {
+                        setShopLoc(loc)
+                        setShopLocError(undefined)
+                      }}
+                      triggerLabel="Change"
+                      title="Pick your shop location"
+                    />
+                  </div>
+                ) : (
+                  <LocationPicker
+                    value={null}
+                    onConfirm={(loc) => {
+                      setShopLoc(loc)
+                      setShopLocError(undefined)
+                    }}
+                    triggerLabel="Pick shop location on map"
+                    title="Pick your shop location"
+                  />
+                )}
+                {shopLocError && <p className="mt-1 text-xs font-medium text-airtel">{shopLocError}</p>}
+              </div>
               <div className="sm:col-span-2 mt-2">
                 <motion.button
                   type="button"

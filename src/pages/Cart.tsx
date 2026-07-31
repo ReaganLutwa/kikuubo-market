@@ -2,13 +2,15 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import { motion, AnimatePresence, animate } from 'framer-motion'
 import {
-  Trash2, Heart, Minus, Plus, BadgeCheck, ShoppingBag, Bike, Package,
+  Trash2, Heart, Minus, Plus, BadgeCheck, ShoppingBag, Bike, Package, MapPin,
   Store, ShieldCheck, ChevronLeft, CreditCard, Banknote, TicketPercent,
 } from 'lucide-react'
 import { formatUGX } from '@/data/products'
 import MoMoModal from '@/components/checkout/MoMoModal'
 import type { PayMethod } from '@/components/checkout/MoMoModal'
 import ConfirmationStep from '@/components/checkout/ConfirmationStep'
+import LocationPicker from '@/components/LocationPicker'
+import type { PickedLocation } from '@/components/LocationPicker'
 import { loadCart, saveCart, clearCart } from '@/components/checkout/cartState'
 import type { CartLine } from '@/components/checkout/cartState'
 import { DELIVERY_OPTIONS, REGIONS } from '@/components/checkout/delivery'
@@ -129,6 +131,8 @@ export default function Cart() {
   const [region, setRegion] = useState(REGIONS[0])
   const [address, setAddress] = useState('')
   const [deliveryId, setDeliveryId] = useState<DeliveryOption['id']>('boda')
+  const [deliveryLoc, setDeliveryLoc] = useState<PickedLocation | null>(null)
+  const [deliveryLocError, setDeliveryLocError] = useState(false)
 
   // payment
   const [payMethod, setPayMethod] = useState<PayMethod>('momo')
@@ -483,6 +487,50 @@ export default function Cart() {
                     className="w-full rounded-xl border border-night/15 px-4 py-2.5 text-sm outline-none focus:border-sunset transition-colors"
                   />
                 </div>
+                <div className="sm:col-span-2">
+                  <label className="text-xs font-semibold text-night/60 mb-1 block">
+                    Delivery Location
+                  </label>
+                  {deliveryLoc ? (
+                    <div
+                      className={`flex items-center gap-3 rounded-xl border px-4 py-3 ${
+                        deliveryLocError ? 'border-airtel' : 'border-night/15'
+                      }`}
+                    >
+                      <MapPin size={17} className="shrink-0 text-sunset" />
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm font-medium">{deliveryLoc.label}</p>
+                        <p className="text-[11px] text-night/45">
+                          {deliveryLoc.lat.toFixed(5)}, {deliveryLoc.lng.toFixed(5)}
+                        </p>
+                      </div>
+                      <LocationPicker
+                        value={deliveryLoc}
+                        onConfirm={(loc) => {
+                          setDeliveryLoc(loc)
+                          setDeliveryLocError(false)
+                        }}
+                        triggerLabel="Change"
+                        title="Drop a pin where the boda should deliver"
+                      />
+                    </div>
+                  ) : (
+                    <LocationPicker
+                      value={null}
+                      onConfirm={(loc) => {
+                        setDeliveryLoc(loc)
+                        setDeliveryLocError(false)
+                      }}
+                      triggerLabel="Drop a pin where the boda should deliver"
+                      title="Drop a pin where the boda should deliver"
+                    />
+                  )}
+                  {deliveryLocError && (
+                    <p className="mt-1 text-xs text-airtel">
+                      Drop a pin so the boda rider knows exactly where to deliver.
+                    </p>
+                  )}
+                </div>
               </div>
 
               {/* Delivery method radio cards */}
@@ -680,7 +728,14 @@ export default function Cart() {
               initial={{ scale: 0.97 }}
               animate={{ scale: 1 }}
               whileTap={{ scale: 0.97 }}
-              onClick={() => setModalOpen(true)}
+              onClick={() => {
+                if (!deliveryLoc) {
+                  setDeliveryLocError(true)
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                  return
+                }
+                setModalOpen(true)
+              }}
               className="mt-5 w-full rounded-full font-semibold py-3.5 transition-colors text-sm md:text-base"
               style={{
                 backgroundColor: payCtaColor,
