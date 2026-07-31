@@ -14,7 +14,7 @@ export default function WhatsAppDeals({ dark = false }: Props) {
     const text = encodeURIComponent(
       `Hi Kikuubo! Add me to the Friday deals broadcast. My number: ${phone || '—'}`
     )
-    window.open(`https://wa.me/256700000000?text=${text}`, '_blank', 'noopener')
+    window.open(`https://wa.me/256708813419?text=${text}`, '_blank', 'noopener')
     setDone(true)
   }
 

@@ -116,7 +116,7 @@ export default function Footer() {
             <Link to="/cookies" className="hover:text-sunset transition-colors">Cookies</Link>
             <Link to="/returns" className="hover:text-sunset transition-colors">Warranty Policy</Link>
             <a
-              href="https://wa.me/256700000000?text=Hi%20Kikuubo%20Customer%20Happiness%20Center!"
+              href="https://wa.me/256708813419?text=Hi%20Kikuubo%20Customer%20Happiness%20Center!"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1 hover:text-sunset transition-colors"
@@ -133,7 +133,7 @@ export default function Footer() {
             ].map(({ icon: Icon, label }) => (
               <a
                 key={label}
-                href="https://wa.me/256700000000"
+                href="https://wa.me/256708813419"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
