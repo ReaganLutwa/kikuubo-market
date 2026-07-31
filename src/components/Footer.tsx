@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { Link } from 'react-router'
 import { motion } from 'framer-motion'
-import { ChevronDown, Send, CreditCard, Truck, BadgeCheck } from 'lucide-react'
+import { ChevronDown, CreditCard, Truck, BadgeCheck, Facebook, Twitter, Instagram, Linkedin, HeartHandshake } from 'lucide-react'
 import { categories } from '@/data/products'
 import { A } from '@/lib/asset'
+import WhatsAppDeals from '@/components/WhatsAppDeals'
 
 const columns = [
   {
@@ -79,18 +80,7 @@ export default function Footer() {
             <p className="text-sm text-cream/60 mb-6 max-w-xs">
               Uganda's Market, In Your Pocket. Phones, fashion, fresh farm produce — pay with mobile money, delivered anywhere in Uganda.
             </p>
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className="flex items-center rounded-full bg-cocoa border border-cream/10 overflow-hidden max-w-sm"
-            >
-              <input
-                placeholder="Get deals every Friday"
-                className="flex-1 bg-transparent px-5 py-3 text-sm outline-none placeholder:text-cream/40"
-              />
-              <button className="bg-sunset hover:bg-sunset-hover transition-colors p-3 text-white" aria-label="Subscribe">
-                <Send size={16} />
-              </button>
-            </form>
+            <WhatsAppDeals dark />
           </div>
           <div className="md:col-span-4 grid md:grid-cols-4 gap-2 md:gap-6">
             {columns.map((col) => (
@@ -117,13 +107,41 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-cream/10 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-cream/40">
+        <div className="mt-8 pt-6 border-t border-cream/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-cream/40">
           <p>🇺🇬 Made in Kampala · © 2026 Kikuubo Uganda Ltd</p>
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
             <Link to="/terms" className="hover:text-sunset transition-colors">Terms & Conditions</Link>
             <Link to="/privacy" className="hover:text-sunset transition-colors">Privacy</Link>
             <Link to="/returns" className="hover:text-sunset transition-colors">Returns</Link>
             <Link to="/cookies" className="hover:text-sunset transition-colors">Cookies</Link>
+            <Link to="/returns" className="hover:text-sunset transition-colors">Warranty Policy</Link>
+            <a
+              href="https://wa.me/256700000000?text=Hi%20Kikuubo%20Customer%20Happiness%20Center!"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 hover:text-sunset transition-colors"
+            >
+              <HeartHandshake size={12} /> Customer Happiness Center
+            </a>
+          </div>
+          <div className="flex items-center gap-3">
+            {[
+              { icon: Facebook, label: 'Facebook' },
+              { icon: Twitter, label: 'X' },
+              { icon: Instagram, label: 'Instagram' },
+              { icon: Linkedin, label: 'LinkedIn' },
+            ].map(({ icon: Icon, label }) => (
+              <a
+                key={label}
+                href="https://wa.me/256700000000"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-cream/15 text-cream/60 hover:text-sunset hover:border-sunset transition-colors"
+              >
+                <Icon size={14} />
+              </a>
+            ))}
           </div>
         </div>
       </div>

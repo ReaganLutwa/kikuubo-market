@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import type { Variants, MotionValue } from 'framer-motion'
 import {
-  Search, Zap, Truck, BadgePercent, ArrowRight, Wheat, Smartphone,
+  Search, Zap, Truck, ArrowRight, Wheat, Smartphone,
   Percent, Timer, Apple, Play, Recycle,
 } from 'lucide-react'
 import ProductCard from '@/components/ProductCard'
@@ -11,6 +11,8 @@ import FlashSale from '@/components/home/FlashSale'
 import TrustStrip from '@/components/home/TrustStrip'
 import { categories, topDeals, refurbDeals } from '@/data/products'
 import { A } from '@/lib/asset'
+import ServiceSwitcher from '@/components/ServiceSwitcher'
+import WhatsAppDeals from '@/components/WhatsAppDeals'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
@@ -498,20 +500,9 @@ function AppDownload() {
             <motion.img variants={fadeUp} src={A('/payment-momo.svg')} alt="MTN MoMo" className="h-9 w-auto" />
             <motion.img variants={fadeUp} src={A('/payment-airtel.svg')} alt="Airtel Money" className="h-9 w-auto" />
           </motion.div>
-          <motion.form
-            variants={fadeUp}
-            onSubmit={(e) => e.preventDefault()}
-            className="mt-8 flex max-w-md items-center rounded-full bg-cocoa border border-cream/15 p-1.5 focus-within:border-sunset focus-within:ring-2 focus-within:ring-sunset/40 transition-all"
-          >
-            <BadgePercent size={18} className="ml-3 text-sunset shrink-0" />
-            <input
-              placeholder="Get deals every Friday"
-              className="flex-1 min-w-0 bg-transparent px-3 py-2 text-sm outline-none placeholder:text-cream/40"
-            />
-            <button className="rounded-full bg-sunset hover:bg-sunset-hover text-white font-semibold text-sm px-6 py-2.5 transition-colors">
-              Join
-            </button>
-          </motion.form>
+          <motion.div variants={fadeUp} className="mt-8 max-w-md">
+            <WhatsAppDeals dark />
+          </motion.div>
         </motion.div>
       </div>
     </section>
@@ -523,6 +514,7 @@ function AppDownload() {
 export default function Home() {
   return (
     <>
+      <ServiceSwitcher />
       <Hero />
       <CategoryStrip />
       <FlashSale />

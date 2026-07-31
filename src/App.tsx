@@ -11,6 +11,11 @@ import Cart from '@/pages/Cart'
 import Sell from '@/pages/Sell'
 import Deals from '@/pages/Deals'
 import Legal from '@/pages/Legal'
+import Food from '@/pages/Food'
+import Mall from '@/pages/Mall'
+import Fresh from '@/pages/Fresh'
+import Send from '@/pages/Send'
+import Pay from '@/pages/Pay'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -41,6 +46,11 @@ export default function App() {
         <Route path="returns" element={<Legal />} />
         <Route path="cookies" element={<Legal />} />
         <Route path="seller-terms" element={<Legal />} />
+        <Route path="food" element={<Food />} />
+        <Route path="mall" element={<Mall />} />
+        <Route path="fresh" element={<Fresh />} />
+        <Route path="send" element={<Send />} />
+        <Route path="pay" element={<Pay />} />
       </Route>
     </Routes>
   )

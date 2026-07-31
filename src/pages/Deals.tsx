@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Bell, ChevronDown, CheckCircle2, Zap, Flame, Tag, Leaf, AlarmClock } from 'lucide-react'
+import { Bell, ChevronDown, Zap, Flame, Tag, Leaf, AlarmClock } from 'lucide-react'
 import type { Product } from '@/data/products'
 import { products, flashSaleProducts, topDeals, formatUGX } from '@/data/products'
 import ProductCard from '@/components/ProductCard'
@@ -8,6 +8,7 @@ import FlipCountdown from '@/components/deals/FlipCountdown'
 import FlashCard from '@/components/deals/FlashCard'
 import ClearanceCard from '@/components/deals/ClearanceCard'
 import { A } from '@/lib/asset'
+import WhatsAppDeals from '@/components/WhatsAppDeals'
 
 type TabId = 'flash' | 'drops' | 'under50' | 'clearance' | 'farm'
 
@@ -93,17 +94,9 @@ const todaysDrops: Product[] = [...products, products[1], products[5]]
 
 export default function Deals() {
   const [tab, setTab] = useState<TabId>('flash')
-  const [alertValue, setAlertValue] = useState('')
-  const [alerted, setAlerted] = useState(false)
   const tabsRef = useRef<HTMLDivElement>(null)
 
   const scrollToDeals = () => tabsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-
-  const submitAlert = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!alertValue.trim()) return
-    setAlerted(true)
-  }
 
   return (
     <div>
@@ -369,33 +362,12 @@ export default function Deals() {
             </motion.div>
             <h2 className="mt-5 font-sora text-2xl md:text-3xl font-extrabold text-white">Never miss a drop</h2>
             <p className="mx-auto mt-2 max-w-md text-sm text-white/80">
-              We'll SMS you the moment flash sales start. Enter your MoMo number or email.
+              Join our WhatsApp broadcast and we'll ping you the moment flash sales start.
             </p>
-            <form onSubmit={submitAlert} className="mx-auto mt-6 flex max-w-md flex-col gap-3 sm:flex-row">
-              <input
-                value={alertValue}
-                onChange={(e) => setAlertValue(e.target.value)}
-                placeholder="+256 7XX XXX XXX or you@email.com"
-                className="flex-1 rounded-full border-2 border-white/30 bg-white/10 px-5 py-3 text-sm text-white placeholder:text-white/60 outline-none transition-colors focus:border-white"
-              />
-              <motion.button
-                type="submit"
-                whileTap={{ scale: 0.97 }}
-                animate={alerted ? { scale: [1, 1.1, 1] } : {}}
-                className={`flex items-center justify-center gap-2 rounded-full px-6 py-3 font-sora text-sm font-bold transition-colors ${
-                  alerted ? 'bg-leaf text-white' : 'bg-night text-cream hover:bg-cocoa'
-                }`}
-              >
-                {alerted ? (
-                  <>
-                    <CheckCircle2 size={16} /> You're in ✓
-                  </>
-                ) : (
-                  'Alert me'
-                )}
-              </motion.button>
-            </form>
-            <p className="mt-3 text-[11px] text-white/60">Free alerts · Unsubscribe anytime with one SMS</p>
+            <div className="mx-auto mt-6 flex max-w-md justify-center">
+              <WhatsAppDeals />
+            </div>
+            <p className="mt-3 text-[11px] text-white/60">Free alerts · Unsubscribe anytime</p>
           </motion.div>
         </div>
       </section>
