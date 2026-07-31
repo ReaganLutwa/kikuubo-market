@@ -70,7 +70,7 @@ function Hero() {
       <motion.div style={{ y: y1 }} className="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full bg-momo/20 blur-3xl" />
       <motion.div style={{ y: y2 }} className="pointer-events-none absolute bottom-0 -left-32 h-80 w-80 rounded-full bg-night/20 blur-3xl" />
 
-      <div className="px-4 md:px-8 max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center min-h-[70vh] md:min-h-[80vh] py-14 md:py-20">
+      <div className="px-4 md:px-8 max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center min-h-[70vh] md:min-h-[min(85vh,720px)] md:max-h-[min(85vh,720px)] py-14 md:py-16">
         <div>
           <motion.span
             initial={{ opacity: 0, y: 16 }}
